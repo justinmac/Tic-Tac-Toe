@@ -2,26 +2,62 @@
 <title>
     Tic Tac Toe
 </title>
+<style>
+.inner {
+    position: relative;
+    height: 250px;
+    width: 250px;
+    top: 50px;
+    left: 50px;
+    border-style: solid;
+    border-width: 5px;
+    border-color: black;
+    border-collapse: inherit;
+    font-family: "Arial",Helvetica,sansserif;
+    font-weight: bold;
+    background-color: green;
+    }
+.cell {
+    border-style: solid;
+    border-width: 5px;
+    border-color: black;
+    font-size: 300%;
+    text-align:center;
+    height: 70px;
+    width: 70px;
+}
+.outer {
+    border-style: solid;
+    border-width: 10px;
+    border-color: black;
+    background-color: red;
+    height: 350px;
+    width: 350px;
+}
+</style>
 <body>
-    <table border = 1>
+    <div class = "outer">
+      <table class = "inner">
         <tr>
-            <td id = '1' colspan = '2'>??</td>
-            <td id = '2' colspan = '2'>??</td>
-            <td id = '3' colspan = '2'>??</td>
+            <td id = '1' class = "cell"></td>
+            <td id = '2' class = "cell"></td>
+            <td id = '3' class = "cell"></td>
         </tr>
         <tr>
-            <td id = '4' colspan = '2'>??</td>
-            <td id = '5' colspan = '2'>??</td>
-            <td id = '6' colspan = '2'>??</td>
+            <td id = '4' class = "cell"></td>
+            <td id = '5' class = "cell"></td>
+            <td id = '6' class = "cell"></td>
         </tr>
         <tr>
-            <td id = '7' colspan = '2'>??</td>
-            <td id = '8' colspan = '2'>??</td>
-            <td id = '9' colspan = '2'>??</td>
+            <td id = '7' class = "cell"></td>
+            <td id = '8' class = "cell"></td>
+            <td id = '9' class = "cell"></td>
         </tr>
-    </table>
+      </table>
+    </div>
     <p></p>
     <input type="button" value="Reset game" onclick = 'reloadPage()' />
+    </body>
 	<script>
 var curPlayer, win, currentPlayer, tableCells, 
 curX, curO, staleCheck;
@@ -49,7 +85,7 @@ function init() {
 
 function onClick() {
     if (win == false) {
-        if (this.textContent == '??') {
+        if (this.textContent == '') {
 		    var self = this;
             this.textContent = currentPlayer;
             if (currentPlayer == 'X')
