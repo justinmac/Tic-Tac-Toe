@@ -2,39 +2,10 @@
 <title>
     Tic Tac Toe
 </title>
-<style>
-.inner {
-    position: relative;
-    height: 250px;
-    width: 250px;
-    top: 50px;
-    left: 50px;
-    border-style: solid;
-    border-width: 5px;
-    border-color: black;
-    border-collapse: inherit;
-    font-family: "Arial",Helvetica,sansserif;
-    font-weight: bold;
-    background-color: green;
-    }
-.cell {
-    border-style: solid;
-    border-width: 5px;
-    border-color: black;
-    font-size: 300%;
-    text-align:center;
-    height: 70px;
-    width: 70px;
-}
-.outer {
-    border-style: solid;
-    border-width: 10px;
-    border-color: black;
-    background-color: red;
-    height: 350px;
-    width: 350px;
-}
-</style>
+<head>
+<link rel = "stylesheet" type = "text/css" href = "tictactoe.css" />
+<script id="s1" src="http://code.jquery.com/jquery-1.6.4.js"></script>
+</head>
 <body>
     <div class = "outer">
       <table class = "inner">
@@ -57,7 +28,6 @@
     </div>
     <p></p>
     <input type="button" value="Reset game" onclick = 'reloadPage()' />
-    </body>
 	<script>
 var curPlayer, win, currentPlayer, tableCells, 
 curX, curO, staleCheck;
@@ -78,8 +48,8 @@ function init() {
     win = false;
     currentPlayer = 'X';
     curPlayer.textContent = 'The CurrentPlayer is X.';
-    curO = '';
-    curX = '';
+    curO = 'The Current Player is O.';
+    curX = 'The Current Player is X.';
 	staleCheck = false;
 }
 
@@ -94,12 +64,10 @@ function onClick() {
                 oState[parseInt(self.id) - 1] = true;
             checkWin();
             if (currentPlayer == 'X') {
-                curO = 'The Current Player is O.';
                 curPlayer.textContent = curO;
                 currentPlayer = 'O';
             }
             else {
-                 curX = 'The Current Player is X.';
                  curPlayer.textContent = curX;
                  currentPlayer = 'X';
             }
@@ -118,13 +86,18 @@ function checkWin() {
 	checkState(oState);
 	staleCheck = true;
     for (var check = 0; check < xState.length; check++) {
-		if (!(xState[check] && oState[check]))
+		if (!(xState[check] || oState[check]))
 			staleCheck = false;
 	}
-    if (win)
-        alert((currentPlayer) + 'has won, reset the game to play again.');
+    if (win) {
+        alert((currentPlayer) + ' has won, reset the game to play again.');
+		curO = (currentPlayer) + ' has won';
+        curX = (currentPlayer) + ' has won';
+	}
 	if (staleCheck) {
         alert('Stalemate! Reset the game to play again.');
+		curO = 'Stalemate!';
+        curX = 'Stalemate!';
     }
 }
 function checkState(state) {
@@ -146,6 +119,6 @@ function checkState(state) {
             win = true;
 }
 init();
-		</script>
-	</body>
+</script>
+    </body>
 </html>

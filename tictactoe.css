@@ -8,7 +8,7 @@
     border-width: 5px;
     border-color: black;
     border-collapse: inherit;
-    font-family: "Arial",Helvetica,sansserif;
+    font-family: "Arial", Helvetica, sansserif;
     font-weight: bold;
     background-color: green;
     }
@@ -17,7 +17,7 @@
     border-width: 5px;
     border-color: black;
     font-size: 300%;
-    text-align:center;
+    text-align: center;
     height: 70px;
     width: 70px;
 }
