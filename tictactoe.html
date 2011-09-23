@@ -35,16 +35,15 @@ var xState = [];
 var oState = [];
 
 function init() {
-    tableCells = document.getElementsByTagName("td");
-    for (var j = 0; j < tableCells.length; j++) {
-        el = tableCells[j];
+    tableCells = $("td");
+	$.each (tableCells, function(j, el) {
         el.addEventListener("click", onClick, false);
-    }
-    curPlayer = document.getElementsByTagName('p')[0];
-    for (var i = 0; i < tableCells.length; i++) {
+    });
+    curPlayer = $('p')[0];
+    $.each (tableCells, function(i, el) {
         xState[i] = false;
         oState[i] = false;
-    }
+    });
     win = false;
     currentPlayer = 'X';
     curPlayer.textContent = 'The CurrentPlayer is X.';
