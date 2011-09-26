@@ -5,7 +5,7 @@ $(document).ready(function(){
 	var oState = [];
 
 	function init() {
-		tableCells = $("td");
+		tableCells = $('td');
 		$.each (tableCells, function(j, el) {
 			$(el).click(onClick);
 		});
@@ -26,11 +26,11 @@ $(document).ready(function(){
 		if (win == false) {
 			if ($(this).text() == '') {
 				var self = this;
-				$(this).text(currentPlayer);
+				$(self).text(currentPlayer);
 				if (currentPlayer == 'X')
-					xState[parseInt(self.id) - 1] = true;
+					xState[parseInt(self.id)] = true;
 				else
-					oState[parseInt(self.id) - 1] = true;
+					oState[parseInt(self.id)] = true;
 				checkWin();
 				if (currentPlayer == 'X') {
 					curPlayer.textContent = curO;
@@ -54,19 +54,19 @@ $(document).ready(function(){
 				staleCheck = false;
 		}
 		if (win) {
-			alert((currentPlayer) + ' has won, reset the game to play again.');
+			alert((currentPlayer) + ' has won, start the game to play again.');
 			curO = (currentPlayer) + ' has won';
 			curX = (currentPlayer) + ' has won';
 		}
 		if (staleCheck) {
-			alert('Stalemate! Reset the game to play again.');
+			alert('Stalemate! Start the game to play again.');
 			curO = 'Stalemate!';
 			curX = 'Stalemate!';
 		}
 	}
 	function checkState(state) {
 		//check horizontal
-		for (var y = 0; y < 3; y+=3) {
+		for (var y = 0; y < 9; y+=3) {
 			if (state[0+y] && state[1+y] && state[2+y])
 				win = true;
 		}
@@ -82,8 +82,32 @@ $(document).ready(function(){
 		if (state[2] && state[4] && state[6])
 				win = true;
 	}
-	init();
+	window.init = init;
 });
-	function reloadPage() {
-		window.location.reload();
-	}
+function reloadPage() {
+	window.location.reload();
+}
+function startGame() {
+	$('div').remove();
+	$('p').remove();
+	var numRows = 3;
+	var numCol = 3;
+	var div = $('<div></div>').appendTo('body');
+	$(div).addClass("outer");
+	var table = $('<table></table>').appendTo(div);
+	$(table).addClass("inner");
+	for (var q = 0; q < numRows; q++)
+		$('<tr></tr>').appendTo(table);
+	var rows = $('tr');
+	$.each (rows, function(num, row) {
+		for (var qw = 0; qw < numCol; qw++) {
+			var cell = $('<td></td>').appendTo(row);
+			$(cell).addClass("cell");
+		}
+	});
+	var cells = $('td');
+	for (var qz = 0; qz < cells.length; qz++)
+		$(cells[qz]).attr('id', qz);
+	$('<p></p>').appendTo('body');
+	init();
+}
