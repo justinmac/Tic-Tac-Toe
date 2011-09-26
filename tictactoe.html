@@ -37,7 +37,7 @@ var oState = [];
 function init() {
     tableCells = $("td");
 	$.each (tableCells, function(j, el) {
-        el.addEventListener("click", onClick, false);
+        $(el).click(onClick);
     });
     curPlayer = $('p')[0];
     $.each (tableCells, function(i, el) {
@@ -46,7 +46,7 @@ function init() {
     });
     win = false;
     currentPlayer = 'X';
-    curPlayer.textContent = 'The CurrentPlayer is X.';
+    $(curPlayer).text("The CurrentPlayer is X.");
     curO = 'The Current Player is O.';
     curX = 'The Current Player is X.';
 	staleCheck = false;
@@ -54,9 +54,9 @@ function init() {
 
 function onClick() {
     if (win == false) {
-        if (this.textContent == '') {
+        if ($(this).text() == '') {
 		    var self = this;
-            this.textContent = currentPlayer;
+            $(this).text(currentPlayer);
             if (currentPlayer == 'X')
                 xState[parseInt(self.id) - 1] = true;
             else
