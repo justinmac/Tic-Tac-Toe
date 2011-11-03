@@ -10,7 +10,7 @@ describe('Tic tac toe game', function() {
 	});
 	
 	it('is won when three x\'s in a row', function() {
-		game.setState('XXX______');
+		game.setState("X:XXX______");
 		expect(game.win).toEqual(true);
 	});
 	
@@ -21,26 +21,29 @@ describe('Tic tac toe game', function() {
 	});
 	
 	it('checks for valid states', function() {
-		game.setState('XXX______');
+		game.setState('X:XXX______');
 		expect(game.isValid()).toEqual(false);
 	});
 	
 	it('should switch players', function() {
+		game.setState("X:_________");
 		expect(game.currentPlayer).toEqual("X");
 		game.move(4);
 		expect(game.currentPlayer).toEqual("O");
 	});
 	
 	it('should change state', function() {
-		expect(game.stateStr).toEqual("_________");
+		game.setState("X:_________");
+		expect(game.stateStr).toEqual("X:_________");
 		spaceToMove = 4;
 		game.move(spaceToMove - 1);
-		expect(game.stateStr).toEqual("___X_____");
+		expect(game.stateStr).toEqual("O:___X_____");
 	});
 	
 	it('should change the state with x\'s and o\'s', function() {
+		game.setState("X:_________");
 		game.move(1);
 		game.move(3);
-		expect(game.stateStr).toEqual("_X_O_____");
+		expect(game.stateStr).toEqual("X:_X_O_____");
 	});
 });

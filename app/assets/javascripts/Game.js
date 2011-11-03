@@ -3,52 +3,35 @@
 function Game() {
 	//switchPlayer() function of the Game, which switches the player.
 	this.switchPlayer = function() {
-		if (this.currentPlayer.charAt(0) == "X") {
-			this.currentPlayer = "O";
-		}
-		else {
-			this.currentPlayer = "X";
-		}
+		this.currentPlayer = this.currentPlayer == 'X' ?
+			"O" : "X";
 	}
-	
+	this.setCurrentPlayer = function(newCurPlayer) {
+		this.currentPlayer = this.savePlayer = newCurPlayer;
+	}
 	//init() function of the Game, initializes the Game.
 	this.init = function() {
-		this.savePlayer = "X";
-		this.staleCheck = false;
-		this.currentPlayer = "X";
+		this.staleCheck = this.win = false;
 		this.xState = [];
 		this.oState = [];
 		for (var falseSet = 0; falseSet < 9; falseSet++) {
-			this.xState[falseSet] = false;
-			this.oState[falseSet] = false;
+			this.xState[falseSet] = this.oState[falseSet] = false;
 		}
-		this.win = false;
-		this.stateStr = "_________";
+		this.stateStr = "_:_________";
 	}
-	
 	//checkWin() function of the Game, checks to see if the Game has been won.
 	this.checkWin = function() {
-		//calling the checkState method, which could set the variable win to true
+		//calling the checkState method, 
+		//which could set the variable win to true
 		this.checkState(this.xState);
 		this.checkState(this.oState);
 		this.staleCheck = true;
 		//check for a stalemate based on what checkState() returned.
 		for (var check = 0; check < this.xState.length; check++) {
-			if (!(this.xState[check] || this.oState[check]))
+			if (!this.xState[check] && !this.oState[check])
 				this.staleCheck = false;
 		}
-		//what to do if there was a win this turn.
-		if (this.win) {
-			curO = (this.currentPlayer) + ' has won';
-			curX = (this.currentPlayer) + ' has won';
-		}
-		//what to do if there was a stalemate this turn.
-		if (this.staleCheck && !this.win) {
-			curO = 'Stalemate!';
-			curX = 'Stalemate!';
-		}
 	}
-	
 	//checkState() function of the Game, which checks every possible 
 	//win condition, and sets the variable win accordingly.
 	this.checkState = function(state) {
@@ -70,24 +53,24 @@ function Game() {
 				this.win = true;
 	}
 	this.move = function(space) {
-		if (this.win == false) {
+		if (!this.win) {
 			//and if the cell is blank...
 			if (!this.xState[space] && !this.oState[space]) {
 				//the x/oState is changed and an X or O is put into the clicked cell.
-				if (this.currentPlayer.charAt(0) == 'X') {
-					this.xState[parseInt(space)] = true;
+				if (this.currentPlayer == "X") {
+					this.xState[space] = true;
 				}
 				else {
-					this.oState[parseInt(space)] = true;
+					this.oState[space] = true;
 				}
 				this.checkWin();
 			}
-			this.getState();
 			this.switchPlayer();
+			this.getState();
 		}
 	}
 	this.getState = function() {
-		this.stateStr = "";
+		this.stateStr = this.currentPlayer + ":";
 		for (var xo = 0; xo < this.xState.length; xo++) {
 			if (this.xState[xo]) {
 				this.stateStr += "X";
@@ -101,12 +84,17 @@ function Game() {
 		}
 	}
 	this.setState = function (savedStr) {
+		this.currentPlayer = savedStr[0] == "X" ?
+		"X" : "O";
+		this.savePlayer = savedStr[0] == "X" ?
+		"X" : "O";
 		for (var xs = 0; xs < this.xState.length; xs++) {
-			if (savedStr.charAt(xs) == 'X')
+			if (savedStr.charAt(xs + 2) == 'X')
 				this.xState[xs] = true;
-			if (savedStr.charAt(xs) == 'O')
+			if (savedStr.charAt(xs + 2) == 'O')
 				this.oState[xs] = true;
 		}
+		this.getState();
 		this.checkWin();
 	}
 	this.isValid = function () {
@@ -118,11 +106,7 @@ function Game() {
 		return Math.abs(diff) <= 1;
 	}
 	this.finalSwitch = function() {
-		if (this.currentPlayer.charAt(0) == "X") {
-			this.savePlayer = "O";
-		}
-		else {
-			this.savePlayer = "X";
-		}
+		this.savePlayer = this.currentPlayer == 'X' ? 
+		"X" : "O";
 	}
 }

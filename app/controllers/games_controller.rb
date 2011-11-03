@@ -15,7 +15,7 @@ class GamesController < ApplicationController
   def show
     @game = Game.find(params[:id])
     respond_to do |format|
-      format.html {redirect_to :action => 'edit'} # show.html.erb
+      format.html # show.html.erb
       format.json { render json: @game }
     end
   end
@@ -60,7 +60,7 @@ class GamesController < ApplicationController
     respond_to do |format|
       if @game.update_attributes(params[:game])
         format.html { redirect_to @game, notice: 'Game was successfully updated.' }
-        format.json { head :ok }
+        format.json { render json: @game }
       else
         format.html { render action: "edit" }
         format.json { render json: @game.errors, status: :unprocessable_entity }

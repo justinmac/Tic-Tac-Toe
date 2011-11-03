@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyString
+  id: 1
+  current_game: 1
+  password: MyString
+
+two:
+  name: MyString
+  id: 1
+  current_game: 1
+  password: MyString
