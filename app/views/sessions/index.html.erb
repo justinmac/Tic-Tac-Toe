@@ -1,0 +1,27 @@
+<h1>Listing sessions</h1>
+
+<script language="javascript" type="text/javascript">
+	<% if (session[:user_id] == nil) %>
+		window.location.href = "localhost:3000/games";
+	<% end %>
+</script>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @sessions.each do |session| %>
+  <tr>
+    <td><%= link_to 'Show', session %></td>
+    <td><%= link_to 'Edit', edit_session_path(session) %></td>
+    <td><%= link_to 'Destroy', session, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Session', new_session_path %>

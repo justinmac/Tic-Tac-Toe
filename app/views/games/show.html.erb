@@ -1,3 +1,9 @@
+<script language="javascript" type="text/javascript">
+	<% if not (session[:user_id] == @game.user1 or session[:user_id] == @game.user2) %>
+		window.location.href = "localhost:3000/games";
+	<% end %>
+</script>
+
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -15,8 +21,8 @@
   <%= @game.state %>
 </p>
 
-
 <%= link_to 'Edit', edit_game_path(@game) %> |
 <%= link_to 'Back', games_path %>
 <%= javascript_include_tag "Game", "tictactoe" %>
+
 <input type="button" value="New Game" onClick = 'newGame()' />

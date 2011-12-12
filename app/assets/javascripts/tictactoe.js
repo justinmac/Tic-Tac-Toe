@@ -29,6 +29,7 @@ function init() {
 //startGame() function, that begins the game whenever the page 
 //is loaded, beginning where the game was left off.
 function startGame() {
+	checkLoggedIn();
 	//removing past html that is no longer needed.
 	$('div.outer').remove();
 	$('p.current').remove();
@@ -165,7 +166,7 @@ function postState(el) {
 	$.ajax (url, settings);
 }
 function getInitState() {
-	$.get ('http://localhost:3000/games/6.json', loadState, 'json');
+	$.get ((window.location.href + '.json'), loadState, 'json');
 }
 function loadState(gameData) {
 	saverStr = gameData.state;
@@ -181,4 +182,28 @@ function loadState(gameData) {
 	});
 	game.setCurrentPlayer(saverStr.charAt(0));
 	postState();
+}
+function checkLoggedIn() {
+	var user1, user2;
+	var thisJson = window.location.href + '.json';
+	$.get (thisJson, getUser, 'json');
+	var uJson1 = 'localhost:3000/users/' + user1 + '.json';
+	var uJson2 = 'localhost:3000/users/' + user2 + '.json';
+	$.get (uJson1, log1, 'json');
+}
+function log1(data) {
+	var s1, s2;
+	s1 = data.logged_in;
+	$.get (uJson2, log2, 'json');
+	if (!(s1 == 'y') && !(s2 == 'y')) {
+		alert("The correct users are not logged in.");
+		//window.location = "http://localhost:3000/games";
+	}
+}
+function log2(data) {
+	s2 = data.logged_in;
+}
+function getUser(data) {
+	user1 = data.user1;
+	user2 = data.user2;
 }
